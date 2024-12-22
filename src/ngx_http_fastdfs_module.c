@@ -111,10 +111,16 @@ static ngx_int_t fdfs_set_header(ngx_http_request_t *r, \
 static ngx_int_t fdfs_set_content_disposition(ngx_http_request_t *r, \
 			struct fdfs_http_response *pResponse)
 {
-	int value_len;
-	value_len = snprintf(pResponse->content_disposition, \
-		sizeof(pResponse->content_disposition), \
-		"attachment; filename=\"%s\"", pResponse->attachment_filename);
+  	int value_len;
+  	if(pResponse->type_inline != NULL) {
+		value_len = snprintf(pResponse->content_disposition, \
+			sizeof(pResponse->content_disposition), \
+			"inline; filename=\"%s\"", pResponse->attachment_filename);
+    } else {
+		value_len = snprintf(pResponse->content_disposition, \
+			sizeof(pResponse->content_disposition), \
+			"attachment; filename=\"%s\"", pResponse->attachment_filename);
+    }
 	return fdfs_set_header(r, "Content-Disposition", "content-disposition",\
 		sizeof("Content-Disposition") - 1, \
 		pResponse->content_disposition, value_len);

@@ -102,6 +102,7 @@ struct fdfs_http_response {
 	char last_modified_buff[32];
     char boundary[FDFS_MAX_HTTP_BOUNDARY];
 	bool header_outputed;   //if header output
+    char *type_inline;
 };
 
 struct fdfs_http_range {

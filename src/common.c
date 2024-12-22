@@ -1044,6 +1044,10 @@ int fdfs_http_request_handler(struct fdfs_http_context *pContext)
 
 	response.attachment_filename = fdfs_http_get_parameter("filename", \
 						params, param_count);
+
+    response.type_inline = fdfs_http_get_parameter("type", \
+                        params, param_count);
+
 	if (bFileExists)
 	{
 		if (file_info.file_size < 0)  //slave or appender file
